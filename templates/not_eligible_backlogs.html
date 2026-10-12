@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Not Eligible - Internship Recommendation System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .not-eligible-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 60px 40px;
+            text-align: center;
+            max-width: 600px;
+        }
+        .not-eligible-icon {
+            font-size: 5rem;
+            color: #dc3545;
+            margin-bottom: 30px;
+        }
+        .not-eligible-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .not-eligible-subtitle {
+            font-size: 1.2rem;
+            color: #6c757d;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        .warning-box {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+        .warning-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #721c24;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .warning-list {
+            list-style: none;
+            padding: 0;
+        }
+        .warning-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+        }
+        .warning-icon {
+            color: #dc3545;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .btn-back {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+            margin-left: 10px;
+        }
+        .btn-secondary:hover {
+            background: #5a6268;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="not-eligible-card">
+        <div class="not-eligible-icon">Not Eligible</div>
+        <h1 class="not-eligible-title">Not Eligible Due to Active Backlogs</h1>
+        <p class="not-eligible-subtitle">
+            We're sorry, but students with active backlogs are not eligible for internship opportunities at this time.
+        </p>
+        
+        <div class="warning-box">
+            <h3 class="warning-title">
+                <span>Warning</span>
+                Eligibility Requirements
+            </h3>
+            <ul class="warning-list">
+                <li class="warning-item">
+                    <span class="warning-icon">!</span>
+                    <span>Students must have no active backlogs to be eligible</span>
+                </li>
+                <li class="warning-item">
+                    <span class="warning-icon">!</span>
+                    <span>Clear all pending subjects before applying</span>
+                </li>
+                <li class="warning-item">
+                    <span class="warning-icon">!</span>
+                    <span>Maintain good academic standing throughout the program</span>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="{{ url_for('student_dashboard') }}" class="btn btn-back">Back to Dashboard</a>
+            <a href="{{ url_for('eligibility_form') }}" class="btn btn-secondary">Try Again</a>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

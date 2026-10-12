@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Internships - Internship Finder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .manage-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .manage-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .table-container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        .internship-table {
+            margin: 0;
+        }
+        .internship-table thead {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+        }
+        .internship-table th {
+            border: none;
+            padding: 15px;
+            font-weight: 600;
+        }
+        .internship-table tbody tr {
+            transition: background-color 0.3s ease;
+        }
+        .internship-table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+        .internship-table td {
+            padding: 15px;
+            vertical-align: middle;
+            border-color: #e9ecef;
+        }
+        .domain-badge {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+        .skills-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .skill-tag {
+            background: #f8f9fa;
+            color: #495057;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+        }
+        .btn-edit {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+        }
+        .btn-edit:hover {
+            background: #218838;
+            color: white;
+        }
+        .btn-back {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+        .btn-back:hover {
+            background: #5a6268;
+            color: white;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .empty-icon {
+            font-size: 4rem;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+        .table-responsive {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .info-text {
+            color: #28a745;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="manage-card">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="manage-title">Update Internships</h2>
+                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-back">Back to Dashboard</a>
+            </div>
+            
+            <div class="info-text">
+                ✏️ Edit internship details to keep information up to date
+            </div>
+                        
+            {% if internships %}
+                <div class="table-container">
+                    <div class="table-responsive">
+                        <table class="table internship-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Title</th>
+                                    <th>Company</th>
+                                    <th>Domain</th>
+                                    <th>Min CGPA</th>
+                                    <th>Skills Required</th>
+                                    <th>Duration</th>
+                                    <th>Stipend</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for internship in internships %}
+                                <tr>
+                                    <td>{{ internship.id }}</td>
+                                    <td>
+                                        <strong>{{ internship.title }}</strong>
+                                        {% if internship.apply_link %}
+                                        <br><small><a href="{{ internship.apply_link }}" target="_blank" class="text-muted">View posting</a></small>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ internship.company_name }}</td>
+                                    <td>
+                                        <span class="domain-badge">{{ internship.domain }}</span>
+                                    </td>
+                                    <td>{{ internship.min_cgpa }}</td>
+                                    <td>
+                                        <div class="skills-tags">
+                                            {% for skill in internship.required_skills.split(', ') %}
+                                                <span class="skill-tag">{{ skill }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    </td>
+                                    <td>{{ internship.duration }}</td>
+                                    <td>
+                                    {% if internship.stipend and internship.stipend.strip() %}
+                                        {{ internship.stipend }}
+                                    {% else %}
+                                        <span class="text-muted">Not specified</span>
+                                    {% endif %}
+                                </td>
+                                    <td>
+                                        <a href="{{ url_for('edit_internship', internship_id=internship.id) }}" class="btn btn-edit">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <div class="empty-icon">No internships</div>
+                    <h3>No Internships Found</h3>
+                    <p class="text-muted">There are no internships to update</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
